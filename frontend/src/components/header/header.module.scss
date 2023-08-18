@@ -1,0 +1,24 @@
+.header {
+  width: 1920px;
+  height: 70px;
+  background-color: #a166ff;
+  display: flex;
+  justify-content: end;
+  .navigation {
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    margin-right: 100px;
+    list-style: none;
+    li {
+      font-size: 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+    }
+  }
+}

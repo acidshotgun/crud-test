@@ -24,6 +24,7 @@ const postSchema = new Schema(
   }
 );
 
+// Модель поста
 const Post = mongoose.model("Post", postSchema);
 
 export default Post;
