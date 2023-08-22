@@ -24,6 +24,11 @@ app.use(express.urlencoded({ extended: false }));
 // Для запросов между локальными доменами CORS - политика...
 app.use(cors());
 
+// В req.body попадал пустой объект
+// Этот middleware преобразует полученные данный в JSON
+// анализирует строку JSON, поступающую в теле запроса, и преобразует ее в объект JavaScrip
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("<h1>Hello world</h1>");
 });
@@ -34,4 +39,9 @@ app.use(postRoutes);
 // Middleware отлавливает ошибки
 app.use((req, res) => {
   res.status(400);
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something went wrong!");
 });

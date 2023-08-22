@@ -1,23 +1,25 @@
 import axios from "axios";
 
 export const useHttp = () => {
-  const request = async (url, method = "GET") => {
+  const request = async (url, method, body = null) => {
     try {
       let response;
 
       switch (method) {
-        default:
+        case "GET":
           response = await axios.get(url);
           break;
         case "POST":
-          response = await axios.post(url);
+          response = await axios.post(url, body);
           break;
         case "PUT":
-          response = await axios.put(url);
+          response = await axios.put(url, body);
           break;
         case "DELETE":
           response = await axios.delete(url);
           break;
+        default:
+          new Error(`Unsupported request method: ${method}`);
       }
 
       if (response.status !== 200) {

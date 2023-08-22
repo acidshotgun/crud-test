@@ -9,6 +9,12 @@ const usePostServices = () => {
     return res.data;
   };
 
+  // Добавить пост в бд
+  const addPost = async (body) => {
+    console.log(body);
+    await request("http://localhost:3001/posts", "POST", body);
+  };
+
   // const _transformData = (data) => {
   //   return {
   //     author: data.author,
@@ -17,7 +23,7 @@ const usePostServices = () => {
   //   };
   // };
 
-  return { getAllPosts };
+  return { getAllPosts, addPost };
 };
 
 export default usePostServices;

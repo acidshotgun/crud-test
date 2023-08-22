@@ -25,6 +25,8 @@ const Posts: FC = () => {
     setPosts((posts: IPost[]) => [...posts, ...newPosts]);
   };
 
+  console.log("render");
+
   return (
     <>
       <h1>POSTS</h1>

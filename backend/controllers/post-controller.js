@@ -22,7 +22,7 @@ const getOnePost = (req, res) => {
 
 // Add post
 const addPost = (req, res) => {
-  const { title, text, author } = req.body;
+  const { author, title, text } = req.body;
   const post = new Post({ author, title, text });
 
   post
