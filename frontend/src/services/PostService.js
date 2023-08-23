@@ -9,6 +9,11 @@ const usePostServices = () => {
     return res.data;
   };
 
+  const getOnePost = async (postId) => {
+    const res = await request(`http://localhost:3001/posts/${postId}`, "GET");
+    return res.data;
+  };
+
   // Добавить пост в бд
   const addPost = async (body) => {
     console.log(body);
@@ -23,7 +28,7 @@ const usePostServices = () => {
   //   };
   // };
 
-  return { getAllPosts, addPost };
+  return { getAllPosts, getOnePost, addPost };
 };
 
 export default usePostServices;

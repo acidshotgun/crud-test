@@ -9,6 +9,7 @@ import Contacts from "../../pages/contacts/Contacts";
 import AddPost from "../../pages/add-post-page/AddPost";
 // Styles
 import styles from "./app.module.scss";
+import OnePost from "../../pages/one-post/OnePost";
 
 const App: FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/posts" element={<Posts />} />
+            <Route path="/posts/:postId" element={<OnePost />} />
             <Route path="/add-post" element={<AddPost />} />
             <Route path="/contacts" element={<Contacts />} />
           </Routes>

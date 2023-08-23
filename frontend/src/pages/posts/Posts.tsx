@@ -32,11 +32,12 @@ const Posts: FC = () => {
       <h1>POSTS</h1>
       <div>
         <div>
-          <ul className={styles.list_wrap}>
+          <div className={styles.list_wrap}>
             {posts.map((post) => {
               return (
                 <PostItem
                   key={post._id}
+                  id={post._id}
                   author={post.author}
                   title={post.title}
                   text={post.text}
@@ -44,7 +45,7 @@ const Posts: FC = () => {
                 />
               );
             })}
-          </ul>
+          </div>
         </div>
       </div>
     </>

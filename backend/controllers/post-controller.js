@@ -15,6 +15,8 @@ const getAllPosts = (req, res) => {
 
 // Get one post
 const getOnePost = (req, res) => {
+  console.log(req.params);
+
   Post.findById(req.params.id)
     .then((post) => res.status(200).json(post))
     .catch((error) => handleError(res, error));
