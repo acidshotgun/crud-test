@@ -1,7 +1,7 @@
 import { useHttp } from "../hooks/useHttp";
 
 const usePostServices = () => {
-  const { request } = useHttp();
+  const { request, loading, error } = useHttp();
 
   // ВОЗВРАЩАЕТ ПОЛНЫЕ ОБЪЕКТЫ ИЗ БД
   const getAllPosts = async () => {
@@ -9,6 +9,7 @@ const usePostServices = () => {
     return res.data;
   };
 
+  // Получить один пост
   const getOnePost = async (postId) => {
     const res = await request(`http://localhost:3001/posts/${postId}`, "GET");
     return res.data;
@@ -16,19 +17,14 @@ const usePostServices = () => {
 
   // Добавить пост в бд
   const addPost = async (body) => {
-    console.log(body);
     await request("http://localhost:3001/posts", "POST", body);
   };
 
-  // const _transformData = (data) => {
-  //   return {
-  //     author: data.author,
-  //     title: data.title,
-  //     text: data.text,
-  //   };
-  // };
+  const deletePost = async (postId) => {
+    await request(`http://localhost:3001/posts/${postId}`, "DELETE");
+  };
 
-  return { getAllPosts, getOnePost, addPost };
+  return { getAllPosts, getOnePost, addPost, deletePost, loading, error };
 };
 
 export default usePostServices;

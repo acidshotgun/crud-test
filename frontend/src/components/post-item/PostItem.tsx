@@ -5,17 +5,29 @@ import IPost from "../../types/post";
 // Styles
 import styles from "./postItem.module.scss";
 
-const PostItem: FC<IPost> = ({ id, author, title, text, createdAt }) => {
+const PostItem: FC<IPost> = ({
+  _id,
+  author,
+  title,
+  text,
+  createdAt,
+  deletePost,
+}) => {
   return (
     <div className={styles.list}>
       <div className={styles.subtitle}>
-        <div className={styles.title}>{title}</div>
-        <div className={styles.author}>
-          Автор: <span>{author}</span>
+        <div className={styles.description}>
+          <div className={styles.title}>{title}</div>
+          <div className={styles.author}>
+            Автор: <span>{author}</span>
+          </div>
         </div>
-        <button>
-          <NavLink to={`/posts/${id}`}>Перейти к посту</NavLink>
-        </button>
+        <div className={styles.buttons}>
+          <button onClick={deletePost}>Удалить</button>
+          <button>
+            <NavLink to={`/posts/${_id}`}>Перейти к посту</NavLink>
+          </button>
+        </div>
       </div>
 
       <div className={styles.content}>

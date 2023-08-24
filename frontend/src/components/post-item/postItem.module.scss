@@ -9,19 +9,27 @@
 
   .subtitle {
     display: flex;
+    justify-content: space-between;
     height: 40px;
     border-bottom: 1px solid black;
-    .title {
-      margin-right: 30px;
-      font-size: 20px;
-      color: rgb(0, 27, 78);
-    }
-    .author {
-      font-size: 20px;
-      span {
-        color: crimson;
+    .description {
+      display: flex;
+      .title {
+        margin-right: 30px;
+        font-size: 20px;
+        color: rgb(0, 27, 78);
+      }
+      .author {
+        font-size: 20px;
+        span {
+          color: crimson;
+        }
       }
     }
+  }
+
+  .buttons {
+    display: flex;
     button {
       display: block;
       height: 30px;

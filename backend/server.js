@@ -36,9 +36,9 @@ app.get("/", (req, res) => {
 // Middleware обработки постов
 app.use(postRoutes);
 
-// Middleware отлавливает ошибки
+// Middleware отлавливает ошибки несоответствия роута
 app.use((req, res) => {
-  res.status(400);
+  res.status(404).send("Not Found");
 });
 
 app.use((err, req, res, next) => {

@@ -1,7 +1,15 @@
+import { useState, useCallback } from "react";
 import axios from "axios";
 
 export const useHttp = () => {
-  const request = async (url, method, body = null) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // useCallback() - оптимизирует запрос меомизируя его
+  // Если входящие параметры не меняются - то запроса при ререндере не будет.
+  const request = useCallback(async (url, method, body = null) => {
+    setLoading(true);
+
     try {
       let response;
 
@@ -16,21 +24,25 @@ export const useHttp = () => {
           response = await axios.put(url, body);
           break;
         case "DELETE":
+          setLoading(false);
           response = await axios.delete(url);
           break;
         default:
-          new Error(`Unsupported request method: ${method}`);
+          throw new Error(`Unsupported request method: ${method}`);
       }
 
       if (response.status !== 200) {
         throw new Error(`Could not fetch ${url}, status ${response.status}`);
       }
 
+      setLoading(false);
       return response;
     } catch (error) {
+      setLoading(false);
+      setError(error.message);
       throw error;
     }
-  };
+  }, []);
 
-  return { request };
+  return { request, loading, error };
 };
