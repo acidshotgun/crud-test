@@ -20,11 +20,25 @@ const usePostServices = () => {
     await request("http://localhost:3001/posts", "POST", body);
   };
 
+  // Изменить пост
+  const editPost = async (postId, body) => {
+    await request(`http://localhost:3001/posts/${postId}`, "PUT", body);
+  };
+
+  // Удалить пост
   const deletePost = async (postId) => {
     await request(`http://localhost:3001/posts/${postId}`, "DELETE");
   };
 
-  return { getAllPosts, getOnePost, addPost, deletePost, loading, error };
+  return {
+    getAllPosts,
+    getOnePost,
+    addPost,
+    editPost,
+    deletePost,
+    loading,
+    error,
+  };
 };
 
 export default usePostServices;

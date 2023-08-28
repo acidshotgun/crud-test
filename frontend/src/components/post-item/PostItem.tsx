@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 // Types
 import IPost from "../../types/post";
 // Styles
@@ -13,6 +13,11 @@ const PostItem: FC<IPost> = ({
   createdAt,
   deletePost,
 }) => {
+  // Получаем id поста из url
+  // Если он есть, то это страница с отдельным постом,
+  // Значит есть возможность редактирования.
+  const { postId } = useParams();
+
   return (
     <div className={styles.list}>
       <div className={styles.subtitle}>
@@ -23,7 +28,13 @@ const PostItem: FC<IPost> = ({
           </div>
         </div>
         <div className={styles.buttons}>
-          <button onClick={deletePost}>Удалить</button>
+          {!postId ? (
+            <button onClick={deletePost}>Удалить</button>
+          ) : (
+            <button>
+              <NavLink to={`/edit-post/${postId}`}>Редактировать пост</NavLink>
+            </button>
+          )}
           <button>
             <NavLink to={`/posts/${_id}`}>Перейти к посту</NavLink>
           </button>

@@ -1,5 +1,7 @@
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import { string, object } from "yup";
+import { useEffect, useState } from "react";
+import { redirect, useParams } from "react-router-dom";
 // Тип
 import IPost from "../../types/post";
 // Хук (достаем отправка)
@@ -8,31 +10,58 @@ import usePostServices from "../../services/PostService";
 import styles from "./post-form.module.scss";
 
 const PostForm = () => {
-  const { addPost } = usePostServices();
+  const { postId } = useParams();
+  const { addPost, getOnePost, editPost } = usePostServices();
+
+  const [initialValues, setInitialValues] = useState<IPost>({
+    author: "",
+    title: "",
+    text: "",
+  });
+
+  useEffect(() => {
+    if (postId) {
+      getOnePost(postId).then((res) => {
+        setInitialValues(res);
+      });
+    }
+  }, [postId]);
 
   const handleSubmit = (value: IPost, { resetForm }: FormikHelpers<IPost>) => {
-    addPost(value);
+    if (postId) {
+      editPost(postId, value);
+      setInitialValues(value);
+    } else {
+      addPost(value);
+    }
     resetForm();
   };
 
   return (
     <Formik
-      initialValues={{
-        author: "",
-        title: "",
-        text: "",
-      }}
-      validationSchema={object({
-        author: string()
-          .max(15, "Максимум 15 символов")
-          .required("Поле обязательно"),
-        title: string()
-          .max(25, "Максимум 25 символов")
-          .required("Поле обязательно"),
-        text: string()
-          .min(1, "Нужно хоть что-то написать")
-          .required("Поле обязательно"),
-      })}
+      // enableReinitialize={true} - ппозволит компоненту Formik переинициализировать значения,
+      // когда initialValues изменяются, включая асинхронные изменения, вызванные получением данных из getOnePost
+      enableReinitialize={true}
+      initialValues={initialValues}
+      validationSchema={
+        !postId
+          ? object({
+              author: string()
+                .max(15, "Максимум 15 символов")
+                .required("Поле обязательно"),
+              title: string()
+                .max(25, "Максимум 25 символов")
+                .required("Поле обязательно"),
+              text: string()
+                .min(1, "Нужно хоть что-то написать")
+                .required("Поле обязательно"),
+            })
+          : object({
+              author: string(),
+              title: string(),
+              text: string(),
+            })
+      }
       onSubmit={handleSubmit}
     >
       <Form>
@@ -71,11 +100,14 @@ const PostForm = () => {
               name="text"
               type="text"
               component="textarea"
+              required
             />
             <ErrorMessage name="text" component="div" />
           </div>
 
-          <button type="submit">Создать пост</button>
+          <button type="submit">
+            {postId ? "Сохранить изменения" : "Создать пост"}
+          </button>
         </div>
       </Form>
     </Formik>

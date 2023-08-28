@@ -7,6 +7,7 @@ import Home from "../../pages/home/Home";
 import Posts from "../../pages/posts/Posts";
 import Contacts from "../../pages/contacts/Contacts";
 import AddPost from "../../pages/add-post-page/AddPost";
+import EditPost from "../../pages/edit-post/EditPost";
 // Styles
 import styles from "./app.module.scss";
 import OnePost from "../../pages/one-post/OnePost";
@@ -22,6 +23,7 @@ const App: FC = () => {
             <Route path="/posts" element={<Posts />} />
             <Route path="/posts/:postId" element={<OnePost />} />
             <Route path="/add-post" element={<AddPost />} />
+            <Route path="/edit-post/:postId" element={<EditPost />} />
             <Route path="/contacts" element={<Contacts />} />
           </Routes>
         </div>
