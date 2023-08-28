@@ -9,6 +9,11 @@ import usePostServices from "../../services/PostService";
 // Стили
 import styles from "./post-form.module.scss";
 
+// Форма под добавление и редактирование постов
+// Логика - в зависимости от id страницы
+// Если id есть то это редактирование
+// Если нет - это простое добавление
+// Напр кнопка будет либо создать либо изменить.
 const PostForm = () => {
   const { postId } = useParams();
   const { addPost, getOnePost, editPost } = usePostServices();
